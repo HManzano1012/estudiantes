@@ -1,3 +1,6 @@
+
+import java.awt.CardLayout;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -25,21 +28,135 @@ public class Home extends javax.swing.JFrame {
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
+                jSplitPane1 = new javax.swing.JSplitPane();
+                jPanel4 = new javax.swing.JPanel();
+                HomeMainMenuButton = new javax.swing.JButton();
+                usersMainMenuButton = new javax.swing.JButton();
+                MainPanel = new javax.swing.JPanel();
+                HomePanel = new javax.swing.JPanel();
+                UsuariosPanel = new javax.swing.JPanel();
+                jLabel1 = new javax.swing.JLabel();
+
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setBackground(new java.awt.Color(255, 255, 255));
+
+                jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+                HomeMainMenuButton.setBackground(new java.awt.Color(255, 255, 255));
+                HomeMainMenuButton.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+                HomeMainMenuButton.setForeground(new java.awt.Color(153, 153, 153));
+                HomeMainMenuButton.setText("");
+                HomeMainMenuButton.setBorder(null);
+                HomeMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                HomeMainMenuButtonActionPerformed(evt);
+                        }
+                });
+
+                usersMainMenuButton.setBackground(new java.awt.Color(255, 255, 255));
+                usersMainMenuButton.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+                usersMainMenuButton.setForeground(new java.awt.Color(153, 153, 153));
+                usersMainMenuButton.setText("");
+                usersMainMenuButton.setToolTipText("Usuarios");
+                usersMainMenuButton.setBorder(null);
+                usersMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                usersMainMenuButtonActionPerformed(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+                jPanel4.setLayout(jPanel4Layout);
+                jPanel4Layout.setHorizontalGroup(
+                        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(HomeMainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(usersMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                );
+                jPanel4Layout.setVerticalGroup(
+                        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(HomeMainMenuButton)
+                                .addGap(3, 3, 3)
+                                .addComponent(usersMainMenuButton)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                );
+
+                MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+                MainPanel.setLayout(new java.awt.CardLayout());
+
+                HomePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+                javax.swing.GroupLayout HomePanelLayout = new javax.swing.GroupLayout(HomePanel);
+                HomePanel.setLayout(HomePanelLayout);
+                HomePanelLayout.setHorizontalGroup(
+                        HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 739, Short.MAX_VALUE)
+                );
+                HomePanelLayout.setVerticalGroup(
+                        HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 454, Short.MAX_VALUE)
+                );
+
+                MainPanel.add(HomePanel, "HomePanel");
+                HomePanel.getAccessibleContext().setAccessibleName("HomePanel");
+
+                UsuariosPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+                jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+                jLabel1.setText("Usuarios del sistema");
+
+                javax.swing.GroupLayout UsuariosPanelLayout = new javax.swing.GroupLayout(UsuariosPanel);
+                UsuariosPanel.setLayout(UsuariosPanelLayout);
+                UsuariosPanelLayout.setHorizontalGroup(
+                        UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(UsuariosPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(554, Short.MAX_VALUE))
+                );
+                UsuariosPanelLayout.setVerticalGroup(
+                        UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(UsuariosPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(406, Short.MAX_VALUE))
+                );
+
+                MainPanel.add(UsuariosPanel, "UsuariosPanel");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 300, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 );
+
+                MainPanel.getAccessibleContext().setAccessibleName("MainPanel");
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
+
+        private void usersMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMainMenuButtonActionPerformed
+                CardLayout card = (CardLayout)MainPanel.getLayout();
+		card.show(MainPanel,"UsuariosPanel");
+
+        }//GEN-LAST:event_usersMainMenuButtonActionPerformed
+
+        private void HomeMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeMainMenuButtonActionPerformed
+                // TODO add your handling code here:
+		CardLayout card = (CardLayout)MainPanel.getLayout();
+		card.show(MainPanel,"HomePanel");
+        }//GEN-LAST:event_HomeMainMenuButtonActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -50,10 +167,11 @@ public class Home extends javax.swing.JFrame {
 		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 		 */
+		String flatLafLight = "com.formdev.flatlaf.FlatLightLaf";
 		try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					javax.swing.UIManager.setLookAndFeel(flatLafLight);
 					break;
 				}
 			}
@@ -77,5 +195,13 @@ public class Home extends javax.swing.JFrame {
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JButton HomeMainMenuButton;
+        private javax.swing.JPanel HomePanel;
+        private javax.swing.JPanel MainPanel;
+        private javax.swing.JPanel UsuariosPanel;
+        private javax.swing.JLabel jLabel1;
+        private javax.swing.JPanel jPanel4;
+        private javax.swing.JSplitPane jSplitPane1;
+        private javax.swing.JButton usersMainMenuButton;
         // End of variables declaration//GEN-END:variables
 }
