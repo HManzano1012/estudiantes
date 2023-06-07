@@ -1,6 +1,16 @@
 
 import java.awt.CardLayout;
-
+import dbconnector.DB;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -16,6 +26,7 @@ public class Home extends javax.swing.JFrame {
 	 * Creates new form Home
 	 */
 	public Home() {
+		//javax.swing.JFrame.setDefaultLookAndFeelDecorated(true);
 		initComponents();
 	}
 
@@ -29,13 +40,330 @@ public class Home extends javax.swing.JFrame {
         private void initComponents() {
 
                 jSplitPane1 = new javax.swing.JSplitPane();
+                editUserFrame = new javax.swing.JFrame();
+                jLabel5 = new javax.swing.JLabel();
+                jLabel6 = new javax.swing.JLabel();
+                nombre_edit_user = new javax.swing.JTextField();
+                jLabel7 = new javax.swing.JLabel();
+                correo_edit_user = new javax.swing.JTextField();
+                jLabel8 = new javax.swing.JLabel();
+                edit_roles_drop = new javax.swing.JComboBox<>();
+                edit_save_button = new javax.swing.JButton();
+                error_message_username1 = new javax.swing.JLabel();
+                error_message_mail1 = new javax.swing.JLabel();
+                jButton2 = new javax.swing.JButton();
+                deleteUserButton = new javax.swing.JButton();
+                createUserFrame = new javax.swing.JFrame();
+                jLabel2 = new javax.swing.JLabel();
+                jLabel3 = new javax.swing.JLabel();
+                nombre_add_user = new javax.swing.JTextField();
+                jLabel4 = new javax.swing.JLabel();
+                correo_add_user = new javax.swing.JTextField();
+                jLabel9 = new javax.swing.JLabel();
+                create_user_roles_drop = new javax.swing.JComboBox<>();
+                add_user_button_form = new javax.swing.JButton();
+                error_message_username = new javax.swing.JLabel();
+                error_message_mail = new javax.swing.JLabel();
+                jButton3 = new javax.swing.JButton();
                 jPanel4 = new javax.swing.JPanel();
                 HomeMainMenuButton = new javax.swing.JButton();
                 usersMainMenuButton = new javax.swing.JButton();
+                teachersButton = new javax.swing.JButton();
+                reportButton = new javax.swing.JButton();
                 MainPanel = new javax.swing.JPanel();
                 HomePanel = new javax.swing.JPanel();
                 UsuariosPanel = new javax.swing.JPanel();
                 jLabel1 = new javax.swing.JLabel();
+                jScrollPane2 = new javax.swing.JScrollPane();
+                usuarios_table = new javax.swing.JTable();
+                jButton1 = new javax.swing.JButton();
+                TeachersPanel = new javax.swing.JPanel();
+                jLabel10 = new javax.swing.JLabel();
+                jScrollPane1 = new javax.swing.JScrollPane();
+                jTable1 = new javax.swing.JTable();
+                jButton4 = new javax.swing.JButton();
+                ReportPanel = new javax.swing.JPanel();
+                jLabel11 = new javax.swing.JLabel();
+
+                editUserFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                editUserFrame.setBackground(new java.awt.Color(255, 255, 255));
+                editUserFrame.setMinimumSize(new java.awt.Dimension(409, 442));
+                editUserFrame.setResizable(false);
+                editUserFrame.setSize(new java.awt.Dimension(409, 442));
+                editUserFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                        public void windowOpened(java.awt.event.WindowEvent evt) {
+                                editUserFrameWindowOpened(evt);
+                        }
+                });
+
+                jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+                jLabel5.setText("Editar usuario");
+
+                jLabel6.setText("Nombre completo:");
+
+                nombre_edit_user.setBorder(null);
+                nombre_edit_user.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                nombre_edit_userFocusGained(evt);
+                        }
+                });
+                nombre_edit_user.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                nombre_edit_userActionPerformed(evt);
+                        }
+                });
+
+                jLabel7.setText("Correo electronico:");
+
+                correo_edit_user.setBorder(null);
+                correo_edit_user.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                correo_edit_userFocusGained(evt);
+                        }
+                });
+
+                jLabel8.setText("Rol");
+
+                edit_roles_drop.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                edit_roles_dropActionPerformed(evt);
+                        }
+                });
+
+                edit_save_button.setBackground(new java.awt.Color(0, 153, 153));
+                edit_save_button.setForeground(new java.awt.Color(255, 255, 255));
+                edit_save_button.setText("Guardar cambios");
+                edit_save_button.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                edit_save_button.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                edit_save_buttonMouseClicked(evt);
+                        }
+                });
+                edit_save_button.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                edit_save_buttonActionPerformed(evt);
+                        }
+                });
+
+                error_message_username1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                error_message_username1.setForeground(new java.awt.Color(255, 0, 0));
+                error_message_username1.setText("Ingrese un nombre valido*");
+                error_message_username1.setEnabled(false);
+                error_message_username1.setFocusable(false);
+
+                error_message_mail1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                error_message_mail1.setForeground(new java.awt.Color(255, 51, 0));
+                error_message_mail1.setText("Ingrese un correo valido*");
+                error_message_mail1.setEnabled(false);
+                error_message_mail1.setFocusable(false);
+
+                jButton2.setText("Cancelar");
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton2ActionPerformed(evt);
+                        }
+                });
+
+                deleteUserButton.setBackground(new java.awt.Color(255, 51, 51));
+                deleteUserButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+                deleteUserButton.setForeground(new java.awt.Color(255, 255, 255));
+                deleteUserButton.setText("");
+                deleteUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                deleteUserButtonMouseClicked(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout editUserFrameLayout = new javax.swing.GroupLayout(editUserFrame.getContentPane());
+                editUserFrame.getContentPane().setLayout(editUserFrameLayout);
+                editUserFrameLayout.setHorizontalGroup(
+                        editUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(editUserFrameLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(editUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(error_message_mail1)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editUserFrameLayout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(deleteUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(correo_edit_user, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(edit_save_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(edit_roles_drop, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(nombre_edit_user)
+                                        .addComponent(error_message_username1)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(27, Short.MAX_VALUE))
+                );
+                editUserFrameLayout.setVerticalGroup(
+                        editUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(editUserFrameLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(editUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(deleteUserButton))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombre_edit_user, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(error_message_username1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(correo_edit_user, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(error_message_mail1)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edit_roles_drop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(edit_save_button, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(28, Short.MAX_VALUE))
+                );
+
+                error_message_username.setVisible(false);
+                error_message_mail.setVisible(false);
+
+                createUserFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+                createUserFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                createUserFrame.setBackground(new java.awt.Color(204, 204, 204));
+                createUserFrame.setMinimumSize(new java.awt.Dimension(409, 436));
+                createUserFrame.setResizable(false);
+                createUserFrame.setSize(new java.awt.Dimension(409, 436));
+                createUserFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                        public void windowOpened(java.awt.event.WindowEvent evt) {
+                                createUserFrameWindowOpened(evt);
+                        }
+                });
+
+                jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+                jLabel2.setText("Crear nuevo usuario");
+
+                jLabel3.setText("Nombre completo:");
+
+                nombre_add_user.setBorder(null);
+                nombre_add_user.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                nombre_add_userFocusGained(evt);
+                        }
+                });
+                nombre_add_user.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                nombre_add_userActionPerformed(evt);
+                        }
+                });
+
+                jLabel4.setText("Correo electronico:");
+
+                correo_add_user.setBorder(null);
+                correo_add_user.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                correo_add_userFocusGained(evt);
+                        }
+                });
+
+                jLabel9.setText("Rol");
+
+                create_user_roles_drop.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                create_user_roles_dropActionPerformed(evt);
+                        }
+                });
+
+                add_user_button_form.setBackground(new java.awt.Color(0, 153, 153));
+                add_user_button_form.setForeground(new java.awt.Color(255, 255, 255));
+                add_user_button_form.setText("Agregar usuario");
+                add_user_button_form.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                add_user_button_form.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                add_user_button_formMouseClicked(evt);
+                        }
+                });
+                add_user_button_form.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                add_user_button_formActionPerformed(evt);
+                        }
+                });
+
+                error_message_username.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                error_message_username.setForeground(new java.awt.Color(255, 0, 0));
+                error_message_username.setText("Ingrese un nombre valido*");
+                error_message_username.setEnabled(false);
+                error_message_username.setFocusable(false);
+
+                error_message_mail.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                error_message_mail.setForeground(new java.awt.Color(255, 51, 0));
+                error_message_mail.setText("Ingrese un correo valido*");
+                error_message_mail.setEnabled(false);
+                error_message_mail.setFocusable(false);
+
+                jButton3.setText("Cancelar");
+                jButton3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton3ActionPerformed(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout createUserFrameLayout = new javax.swing.GroupLayout(createUserFrame.getContentPane());
+                createUserFrame.getContentPane().setLayout(createUserFrameLayout);
+                createUserFrameLayout.setHorizontalGroup(
+                        createUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(createUserFrameLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(createUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(error_message_mail)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(correo_add_user, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(add_user_button_form, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(create_user_roles_drop, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(nombre_add_user)
+                                        .addComponent(error_message_username)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(39, Short.MAX_VALUE))
+                );
+                createUserFrameLayout.setVerticalGroup(
+                        createUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(createUserFrameLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(createUserFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(createUserFrameLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(nombre_add_user, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(error_message_username)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(correo_add_user, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(error_message_mail)
+                                                .addGap(32, 32, 32)
+                                                .addComponent(create_user_roles_drop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(add_user_button_form, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel9))
+                                .addContainerGap(53, Short.MAX_VALUE))
+                );
+
+                error_message_username.setVisible(false);
+                error_message_mail.setVisible(false);
+
+                createUserFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 setBackground(new java.awt.Color(255, 255, 255));
@@ -65,14 +393,41 @@ public class Home extends javax.swing.JFrame {
                         }
                 });
 
+                teachersButton.setBackground(new java.awt.Color(255, 255, 255));
+                teachersButton.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+                teachersButton.setForeground(new java.awt.Color(153, 153, 153));
+                teachersButton.setText("");
+                teachersButton.setToolTipText("Usuarios");
+                teachersButton.setBorder(null);
+                teachersButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                teachersButtonActionPerformed(evt);
+                        }
+                });
+
+                reportButton.setBackground(new java.awt.Color(255, 255, 255));
+                reportButton.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+                reportButton.setForeground(new java.awt.Color(153, 153, 153));
+                reportButton.setText("󱔗");
+                reportButton.setToolTipText("Usuarios");
+                reportButton.setBorder(null);
+                reportButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                reportButtonActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
                 jPanel4.setLayout(jPanel4Layout);
                 jPanel4Layout.setHorizontalGroup(
                         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(HomeMainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(usersMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(usersMainMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(teachersButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(reportButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 );
                 jPanel4Layout.setVerticalGroup(
                         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,6 +435,10 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(HomeMainMenuButton)
                                 .addGap(3, 3, 3)
                                 .addComponent(usersMainMenuButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(teachersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                 );
 
@@ -96,35 +455,195 @@ public class Home extends javax.swing.JFrame {
                 );
                 HomePanelLayout.setVerticalGroup(
                         HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 454, Short.MAX_VALUE)
+                        .addGap(0, 534, Short.MAX_VALUE)
                 );
 
                 MainPanel.add(HomePanel, "HomePanel");
                 HomePanel.getAccessibleContext().setAccessibleName("HomePanel");
 
                 UsuariosPanel.setBackground(new java.awt.Color(255, 255, 255));
+                UsuariosPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+                        public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                        }
+                        public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                                UsuariosPanelAncestorMoved(evt);
+                        }
+                        public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                        }
+                });
+                UsuariosPanel.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                UsuariosPanelFocusGained(evt);
+                        }
+                });
+                UsuariosPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                UsuariosPanelMouseEntered(evt);
+                        }
+                });
+                UsuariosPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+                        public void componentShown(java.awt.event.ComponentEvent evt) {
+                                UsuariosPanelComponentShown(evt);
+                        }
+                });
 
                 jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
                 jLabel1.setText("Usuarios del sistema");
+
+                usuarios_table.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object [][] {
+
+                        },
+                        new String [] {
+                                "Nombre", "Usuario", "Correo", "Rol"
+                        }
+                ) {
+                        Class[] types = new Class [] {
+                                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                        };
+                        boolean[] canEdit = new boolean [] {
+                                false, false, false, false
+                        };
+
+                        public Class getColumnClass(int columnIndex) {
+                                return types [columnIndex];
+                        }
+
+                        public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                return canEdit [columnIndex];
+                        }
+                });
+                usuarios_table.setMaximumSize(new java.awt.Dimension(375, 0));
+                usuarios_table.setMinimumSize(new java.awt.Dimension(375, 0));
+                usuarios_table.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                                usuarios_tableFocusGained(evt);
+                        }
+                });
+                usuarios_table.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                usuarios_tableMouseClicked(evt);
+                        }
+                });
+                jScrollPane2.setViewportView(usuarios_table);
+                usuarios_table.getTableHeader().setReorderingAllowed(false);
+
+                jButton1.setBackground(new java.awt.Color(0, 153, 102));
+                jButton1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+                jButton1.setForeground(new java.awt.Color(255, 255, 255));
+                jButton1.setText("Agregar usuarios");
+                jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                jButton1MouseClicked(evt);
+                        }
+                });
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton1ActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout UsuariosPanelLayout = new javax.swing.GroupLayout(UsuariosPanel);
                 UsuariosPanel.setLayout(UsuariosPanelLayout);
                 UsuariosPanelLayout.setHorizontalGroup(
                         UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(UsuariosPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(554, Short.MAX_VALUE))
+                                .addGap(39, 39, 39)
+                                .addGroup(UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                                        .addGroup(UsuariosPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(44, 44, 44))
                 );
                 UsuariosPanelLayout.setVerticalGroup(
                         UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(UsuariosPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(406, Short.MAX_VALUE))
+                                .addGap(45, 45, 45)
+                                .addGroup(UsuariosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(39, Short.MAX_VALUE))
                 );
 
                 MainPanel.add(UsuariosPanel, "UsuariosPanel");
+
+                TeachersPanel.setBackground(new java.awt.Color(255, 255, 255));
+                TeachersPanel.setVerifyInputWhenFocusTarget(false);
+
+                jLabel10.setFont(new java.awt.Font("Comfortaa", 0, 14)); // NOI18N
+                jLabel10.setText("Maestros");
+
+                jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object [][] {
+                                {null, null, null, null},
+                                {null, null, null, null},
+                                {null, null, null, null},
+                                {null, null, null, null}
+                        },
+                        new String [] {
+                                "Title 1", "Title 2", "Title 3", "Title 4"
+                        }
+                ));
+                jScrollPane1.setViewportView(jTable1);
+
+                jButton4.setBackground(new java.awt.Color(0, 153, 102));
+                jButton4.setForeground(new java.awt.Color(255, 255, 255));
+                jButton4.setText(" Agregar maestro");
+
+                javax.swing.GroupLayout TeachersPanelLayout = new javax.swing.GroupLayout(TeachersPanel);
+                TeachersPanel.setLayout(TeachersPanelLayout);
+                TeachersPanelLayout.setHorizontalGroup(
+                        TeachersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(TeachersPanelLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(TeachersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(TeachersPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton4))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE))
+                                .addGap(39, 39, 39))
+                );
+                TeachersPanelLayout.setVerticalGroup(
+                        TeachersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(TeachersPanelLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(TeachersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jButton4))
+                                .addGap(40, 40, 40)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                                .addGap(41, 41, 41))
+                );
+
+                MainPanel.add(TeachersPanel, "TeachersPanel");
+
+                ReportPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+                jLabel11.setText("Reportes");
+
+                javax.swing.GroupLayout ReportPanelLayout = new javax.swing.GroupLayout(ReportPanel);
+                ReportPanel.setLayout(ReportPanelLayout);
+                ReportPanelLayout.setHorizontalGroup(
+                        ReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReportPanelLayout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(jLabel11)
+                                .addContainerGap(569, Short.MAX_VALUE))
+                );
+                ReportPanelLayout.setVerticalGroup(
+                        ReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReportPanelLayout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(jLabel11)
+                                .addContainerGap(407, Short.MAX_VALUE))
+                );
+
+                MainPanel.add(ReportPanel, "ReportsPanel");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -149,6 +668,7 @@ public class Home extends javax.swing.JFrame {
         private void usersMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMainMenuButtonActionPerformed
                 CardLayout card = (CardLayout)MainPanel.getLayout();
 		card.show(MainPanel,"UsuariosPanel");
+		this.reloadUsuariosTable();
 
         }//GEN-LAST:event_usersMainMenuButtonActionPerformed
 
@@ -158,6 +678,329 @@ public class Home extends javax.swing.JFrame {
 		card.show(MainPanel,"HomePanel");
         }//GEN-LAST:event_HomeMainMenuButtonActionPerformed
 
+        private void usuarios_tableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarios_tableFocusGained
+                // TODO add your handling code here:
+        }//GEN-LAST:event_usuarios_tableFocusGained
+
+        private void usuarios_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarios_tableMouseClicked
+                // TODO add your handling code here:
+                if (evt.getClickCount() == 2) {
+                        int fila = usuarios_table.getSelectedRow();
+
+                        if (fila == -1) {
+
+                        } else {
+                                try {
+                                        String correo = (String) usuarios_table.getValueAt(fila, 2);
+                                        DB db_class = new DB();
+                                        Connection db_connection = db_class.getConexion();
+                                        String sqlGetUsers = "select u.nombre,u.correo, u.usuario,r.rol from usuarios as u inner join roles as r on r.id = u.id_rol WHERE u.correo = '" + correo + "'";
+                                        Statement st = db_connection.createStatement();
+                                        ResultSet result = st.executeQuery(sqlGetUsers);
+
+                                        String rol = null;
+                                        String name = null;
+
+                                        while (result.next()) {
+                                                rol = result.getString("rol");
+                                                name = result.getString("nombre");
+                                        }
+
+                                        correo_edit_user.setText(correo);
+                                        nombre_edit_user.setText(name);
+                                        editUserFrame.setVisible(rootPaneCheckingEnabled);
+                                        edit_roles_drop.setSelectedItem(rol);
+
+                                } catch (SQLException ex) {
+                                        Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                        }
+                }
+        }//GEN-LAST:event_usuarios_tableMouseClicked
+
+        private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+                // TODO add your handling code here:
+                createUserFrame.setVisible(true);
+        }//GEN-LAST:event_jButton1MouseClicked
+
+        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_jButton1ActionPerformed
+
+        private void nombre_edit_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombre_edit_userFocusGained
+                // TODO add your handling code here:
+        }//GEN-LAST:event_nombre_edit_userFocusGained
+
+        private void nombre_edit_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_edit_userActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_nombre_edit_userActionPerformed
+
+        private void correo_edit_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correo_edit_userFocusGained
+                // TODO add your handling code here:
+        }//GEN-LAST:event_correo_edit_userFocusGained
+
+        private void edit_roles_dropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_roles_dropActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_edit_roles_dropActionPerformed
+
+        private void edit_save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edit_save_buttonMouseClicked
+                // TODO add your handling code here:
+        }//GEN-LAST:event_edit_save_buttonMouseClicked
+
+        private void edit_save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_save_buttonActionPerformed
+                // TODO add your handling code here:
+                String username = nombre_edit_user.getText().trim();
+                String correo = correo_edit_user.getText().trim();
+                String rol = edit_roles_drop.getSelectedItem().toString().trim();
+
+                if (!username.isEmpty() && username.split(" ").length > 1) {
+                        if (!correo.isEmpty() && correo.contains("@") && correo.split(" ").length == 1) {
+
+                                try {
+                                        String[] user_split = username.split(" ");
+                                        String user = user_split[0].toCharArray()[0] + user_split[1];
+
+                                        String sqlGetIdRol = "select id from roles where rol = '" + rol + "'";
+                                        DB db_class = new DB();
+                                        Connection db_connection = db_class.getConexion();
+
+                                        Statement st = db_connection.createStatement();
+                                        ResultSet result = st.executeQuery(sqlGetIdRol);
+                                        String id_rol = null;
+
+                                        while (result.next()) {
+                                                id_rol = result.getString("id");
+                                        }
+
+                                        String sqlSaveUser = "UPDATE usuarios SET nombre='" + username + "',correo='" + correo + "',id_rol=" + id_rol + " WHERE correo = '" + correo + "'";
+                                        System.out.println(sqlSaveUser);
+                                        st.executeUpdate(sqlSaveUser);
+
+                                        correo_add_user.setText("");
+                                        nombre_add_user.setText("");
+                                        editUserFrame.dispose();
+					this.reloadUsuariosTable();
+
+                                } catch (SQLException ex) {
+                                        System.out.println("error");
+                                        Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                        } else {
+                                correo_edit_user.setBorder(new LineBorder(Color.RED, 1));
+                                error_message_mail1.setVisible(true);
+                        }
+                } else {
+                        nombre_edit_user.setBorder(new LineBorder(Color.RED, 1));
+                        error_message_mail1.setVisible(true);
+                }
+        }//GEN-LAST:event_edit_save_buttonActionPerformed
+
+        private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                // TODO add your handling code here:
+                editUserFrame.dispose();
+		this.reloadUsuariosTable();
+        }//GEN-LAST:event_jButton2ActionPerformed
+
+        private void deleteUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteUserButtonMouseClicked
+                // TODO add your handling code here:
+                String correo = correo_edit_user.getText();
+                int dialogButton;
+
+                int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quieres eliminar este usuario? esta opcion no se puede deshacer");
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                        try {
+                                // Saving code here
+                                String sqlDeleteUser = "DELETE FROM usuarios WHERE correo = '"+correo+"'";
+                                DB db_class = new DB();
+                                Connection db_connection = db_class.getConexion();
+
+                                Statement st = db_connection.createStatement();
+                                System.out.println(sqlDeleteUser);
+                                st.executeUpdate(sqlDeleteUser);
+                                editUserFrame.dispose();
+				this.reloadUsuariosTable();
+                                correo_edit_user.setText("");
+                                nombre_edit_user.setText("");
+
+                        } catch (SQLException ex) {
+                                Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                }
+        }//GEN-LAST:event_deleteUserButtonMouseClicked
+
+        private void editUserFrameWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editUserFrameWindowOpened
+                // TODO add your handling code here:
+                try {
+                        // TODO add your handling code here:
+                        this.set_user_form_roles("edit");
+                } catch (SQLException ex) {
+                        Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }//GEN-LAST:event_editUserFrameWindowOpened
+
+        private void nombre_add_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombre_add_userFocusGained
+                // TODO add your handling code here:
+                nombre_add_user.setBorder(new LineBorder(Color.GRAY, 0));
+                error_message_username.setVisible(false);
+        }//GEN-LAST:event_nombre_add_userFocusGained
+
+        private void nombre_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_add_userActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_nombre_add_userActionPerformed
+
+        private void correo_add_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correo_add_userFocusGained
+                // TODO add your handling code here:
+                correo_add_user.setBorder(new LineBorder(Color.GRAY, 0));
+                error_message_mail.setVisible(false);
+        }//GEN-LAST:event_correo_add_userFocusGained
+
+        private void create_user_roles_dropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_user_roles_dropActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_create_user_roles_dropActionPerformed
+
+        private void add_user_button_formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_user_button_formMouseClicked
+                // TODO add your handling code here:
+
+                String username = nombre_add_user.getText().trim();
+                String correo = correo_add_user.getText().trim();
+                String rol = create_user_roles_drop.getSelectedItem().toString().trim();
+
+                if (!username.isEmpty() && username.split(" ").length > 1) {
+                        if (!correo.isEmpty() && correo.contains("@") && correo.split(" ").length == 1) {
+
+                                try {
+                                        String[] user_split = username.split(" ");
+                                        String user = user_split[0].toCharArray()[0] + user_split[1];
+
+                                        String sqlGetIdRol = "select id from roles where rol = '" + rol + "'";
+                                        DB db_class = new DB();
+                                        Connection db_connection = db_class.getConexion();
+
+                                        Statement st = db_connection.createStatement();
+                                        ResultSet result = st.executeQuery(sqlGetIdRol);
+                                        String id_rol = null;
+
+                                        while (result.next()) {
+                                                id_rol = result.getString("id");
+                                        }
+
+                                        String sqlSaveUser = "INSERT INTO usuarios (nombre,usuario,correo,password,id_rol) values ('" + username + "','" + user + "','" + correo + "',md5('1234'),'" + id_rol + "');";
+                                        System.out.println(sqlSaveUser);
+                                        st.executeUpdate(sqlSaveUser);
+                                        createUserFrame.dispose();
+					this.reloadUsuariosTable();
+
+                                } catch (SQLException ex) {
+                                        System.out.println("error");
+                                        Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                        } else {
+                                correo_add_user.setBorder(new LineBorder(Color.RED, 1));
+                                error_message_mail.setVisible(true);
+                        }
+                } else {
+                        nombre_add_user.setBorder(new LineBorder(Color.RED, 1));
+                        error_message_username.setVisible(true);
+                }
+        }//GEN-LAST:event_add_user_button_formMouseClicked
+
+        private void add_user_button_formActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_user_button_formActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_add_user_button_formActionPerformed
+
+        private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                // TODO add your handling code here:
+                createUserFrame.dispose();
+		this.reloadUsuariosTable();
+        }//GEN-LAST:event_jButton3ActionPerformed
+
+        private void createUserFrameWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_createUserFrameWindowOpened
+                // TODO add your handling code here:
+                try {
+                        // TODO add your handling code here:
+                        this.set_user_form_roles("create");
+                } catch (SQLException ex) {
+                        Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }//GEN-LAST:event_createUserFrameWindowOpened
+
+        private void UsuariosPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsuariosPanelFocusGained
+                // TODO add your handling code here:
+		
+        }//GEN-LAST:event_UsuariosPanelFocusGained
+
+        private void UsuariosPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosPanelMouseEntered
+                // TODO add your handling code here:
+        }//GEN-LAST:event_UsuariosPanelMouseEntered
+
+        private void UsuariosPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_UsuariosPanelComponentShown
+                // TODO add your handling code here:
+        }//GEN-LAST:event_UsuariosPanelComponentShown
+
+        private void UsuariosPanelAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_UsuariosPanelAncestorMoved
+                // TODO add your handling code here:
+		
+        }//GEN-LAST:event_UsuariosPanelAncestorMoved
+
+        private void teachersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teachersButtonActionPerformed
+                // TODO add your handling code here:
+		CardLayout card = (CardLayout)MainPanel.getLayout();
+		card.show(MainPanel,"TeachersPanel");
+        }//GEN-LAST:event_teachersButtonActionPerformed
+
+        private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+                // TODO add your handling code here:
+		CardLayout card = (CardLayout)MainPanel.getLayout();
+		card.show(MainPanel,"ReportsPanel");
+        }//GEN-LAST:event_reportButtonActionPerformed
+
+	private void reloadUsuariosTable(){
+		try {
+			// TODO add your handling code here:
+			DB db_class = new DB();
+			Connection db_connection = db_class.getConexion();
+			String sqlGetUsers = "select u.nombre,u.correo, u.usuario,r.rol from usuarios as u inner join roles as r on r.id = u.id_rol";
+
+			Statement st = db_connection.createStatement();
+			ResultSet result = st.executeQuery(sqlGetUsers);
+
+			DefaultTableModel model = (DefaultTableModel) usuarios_table.getModel();
+			model.setRowCount(0);
+			while (result.next()) {
+				String nombre = result.getString("Nombre");
+				String usuario = result.getString("usuario");
+				String correo = result.getString("correo").toLowerCase();
+				String rol = result.getString("rol");
+
+				model.addRow(new Object[]{nombre, usuario, correo, rol});
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(System_users.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	private void set_user_form_roles(String form) throws SQLException {
+		DB db_class = new DB();
+		Connection db_connection = db_class.getConexion();
+
+		String sqlGetRoles = "SELECT * FROM roles";
+		Statement st = db_connection.createStatement();
+		ResultSet result = st.executeQuery(sqlGetRoles);
+
+		while (result.next()) {
+			if (form == "create") {
+				create_user_roles_drop.addItem(result.getString("rol"));
+			} else if (form == "edit") {
+				edit_roles_drop.addItem(result.getString("rol"));
+			}
+		}
+
+	}
+	
+	
 	/**
 	 * @param args the command line arguments
 	 */
@@ -198,10 +1041,47 @@ public class Home extends javax.swing.JFrame {
         private javax.swing.JButton HomeMainMenuButton;
         private javax.swing.JPanel HomePanel;
         private javax.swing.JPanel MainPanel;
+        private javax.swing.JPanel ReportPanel;
+        private javax.swing.JPanel TeachersPanel;
         private javax.swing.JPanel UsuariosPanel;
+        private javax.swing.JButton add_user_button_form;
+        private javax.swing.JTextField correo_add_user;
+        private javax.swing.JTextField correo_edit_user;
+        private javax.swing.JFrame createUserFrame;
+        private javax.swing.JComboBox<String> create_user_roles_drop;
+        private javax.swing.JButton deleteUserButton;
+        private javax.swing.JFrame editUserFrame;
+        private javax.swing.JComboBox<String> edit_roles_drop;
+        private javax.swing.JButton edit_save_button;
+        private javax.swing.JLabel error_message_mail;
+        private javax.swing.JLabel error_message_mail1;
+        private javax.swing.JLabel error_message_username;
+        private javax.swing.JLabel error_message_username1;
+        private javax.swing.JButton jButton1;
+        private javax.swing.JButton jButton2;
+        private javax.swing.JButton jButton3;
+        private javax.swing.JButton jButton4;
         private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel10;
+        private javax.swing.JLabel jLabel11;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JLabel jLabel3;
+        private javax.swing.JLabel jLabel4;
+        private javax.swing.JLabel jLabel5;
+        private javax.swing.JLabel jLabel6;
+        private javax.swing.JLabel jLabel7;
+        private javax.swing.JLabel jLabel8;
+        private javax.swing.JLabel jLabel9;
         private javax.swing.JPanel jPanel4;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JScrollPane jScrollPane2;
         private javax.swing.JSplitPane jSplitPane1;
+        private javax.swing.JTable jTable1;
+        private javax.swing.JTextField nombre_add_user;
+        private javax.swing.JTextField nombre_edit_user;
+        private javax.swing.JButton reportButton;
+        private javax.swing.JButton teachersButton;
         private javax.swing.JButton usersMainMenuButton;
+        private javax.swing.JTable usuarios_table;
         // End of variables declaration//GEN-END:variables
 }
